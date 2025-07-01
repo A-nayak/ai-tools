@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nayak Image‑to‑Text OCR</title>
+
+<meta name="description" content="Convert images into editable text using AI-powered OCR. Supports multiple languages and table detection. Fast, accurate, and free!" />
+
+<meta name="keywords" content="image to text, OCR, Hindi OCR, AI tools, extract text from image, free OCR tool, online OCR, multilingual OCR" />
+
+<meta name="author" content="Ambuj Nayak" />
+
+<meta property="og:title" content="AI Image to Text Converter" />
+<meta property="og:description" content="Extract text from images and PDFs with AI. Supports multiple languages and tables." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tools.nayak.eu.org" />
+<meta property="og:image" content="https://tools.nayak.eu.org/thumbnail.png" />
+<link rel="icon" href="/favicon.ico" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gradient-to-tr from-slate-800 via-slate-700 to-slate-900 flex items-center justify-center py-10">
+  <div class="w-full max-w-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-md shadow-2xl rounded-2xl p-8">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-center text-slate-800 dark:text-slate-100 flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13v-5m-4 0h8"/></svg>
+        Nayak Image‑to‑Text OCR
+      </h1>
+      <button id="darkModeToggle" class="p-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+      </button>
+    </div>
+
+    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="imageInput">Choose an image</label>
+    <input id="imageInput" type="file" accept="image/*" class="w-full mb-4 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 dark:file:bg-indigo-900/30 file:text-indigo-700 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900/40" />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="langSelect">Language</label>
+        <select id="langSelect" class="w-full rounded-md border-slate-300 dark:border-slate-600 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-slate-700 dark:text-slate-200 p-2">
+          <option value="eng">English</option>
+          <option value="hin">Hindi</option>
+          <option value="ben">Bengali</option>
+          <option value="tam">Tamil</option>
+          <option value="tel">Telugu</option>
+          <option value="urd">Urdu</option>
+          <option value="ara">Arabic</option>
+          <option value="chs">Chinese (Simplified)</option>
+          <option value="cht">Chinese (Traditional)</option>
+          <option value="jpn">Japanese</option>
+          <option value="kor">Korean</option>
+          <option value="rus">Russian</option>
+          <option value="fre">French</option>
+          <option value="ger">German</option>
+          <option value="spa">Spanish</option>
+          <option value="ita">Italian</option>
+          <option value="por">Portuguese</option>
+        </select>
+      </div>
+      <div class="flex items-end pt-6">
+        <label class="inline-flex items-center">
+          <input id="tableCheckbox" type="checkbox" class="rounded text-indigo-600 dark:text-indigo-400 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700" />
+          <span class="ml-2 text-sm text-slate-700 dark:text-slate-300">Image contains table</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-4 justify-center mb-6">
+      <button id="extractBtn" class="bg-indigo-600 dark:bg-indigo-700 hover:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-semibold py-2 px-6 rounded-md transition">Extract&nbsp;Text</button>
+      <button id="downloadBtn" class="bg-slate-500 dark:bg-slate-600 hover:bg-slate-600 dark:hover:bg-slate-500 text-white font-semibold py-2 px-6 rounded-md transition disabled:opacity-40" disabled>Download&nbsp;.txt</button>
+    </div>
+
+    <pre id="output" class="whitespace-pre-wrap bg-slate-100 dark:bg-slate-700/50 rounded-md p-4 h-64 overflow-auto text-sm text-slate-800 dark:text-slate-200">Your extracted text will appear here...</pre>
+  </div>
+
+  <script>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const currentTheme = localStorage.getItem('theme');
+    
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+      document.documentElement.classList.add('dark');
+      sunIcon.classList.add('hidden');
+      moonIcon.classList.remove('hidden');
+    } else {
+      document.documentElement.classList.remove('dark');
+      sunIcon.classList.remove('hidden');
+      moonIcon.classList.add('hidden');
+    }
+    
+    darkModeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      sunIcon.classList.toggle('hidden');
+      moonIcon.classList.toggle('hidden');
+    });
+
+    const imageInput   = document.getElementById('imageInput');
+    const langSelect   = document.getElementById('langSelect');
+    const tableCheckbox= document.getElementById('tableCheckbox');
+    const output       = document.getElementById('output');
+    const extractBtn   = document.getElementById('extractBtn');
+    const downloadBtn  = document.getElementById('downloadBtn');
+
+    let currentText = '';
+
+    extractBtn.addEventListener('click', async () => {
+      if (!imageInput.files[0]) {
+        alert('Please upload an image first.');
+        return;
+      }
+
+      output.textContent = '⏳ Processing image...';
+      downloadBtn.disabled = true;
+
+      const file = imageInput.files[0];
+      const formData = new FormData();
+      formData.append('apikey', 'helloworld'); 
+      formData.append('language', langSelect.value);
+      formData.append('scale', 'true');        
+      formData.append('isOverlayRequired', 'false');
+      formData.append('OCREngine', '2');       
+      formData.append('isTable', tableCheckbox.checked ? 'true' : 'false');
+      formData.append('file', file);
+
+      try {
+        const res   = await fetch('https://api.ocr.space/parse/image', { method: 'POST', body: formData });
+        const json  = await res.json();
+        if (json.IsErroredOnProcessing) {
+          output.textContent = '❌ Error: ' + json.ErrorMessage[0];
+          return;
+        }
+        currentText = (json.ParsedResults && json.ParsedResults[0].ParsedText) || 'No text detected.';
+        output.textContent = currentText;
+        downloadBtn.disabled = !currentText.trim();
+      } catch (err) {
+        output.textContent = '❌ Network error: ' + err.message;
+      }
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      if (!currentText.trim()) return;
+      const blob = new Blob([currentText], { type: 'text/plain' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url;
+      a.download = 'ocr_result.txt';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+        a.remove();
+      }, 0);
+    });
+  </script>
+</body>
+</html>
